@@ -1,0 +1,25 @@
+.club-search-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .club-search-results p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 20px;
+  }
+  
+  .club-search-results .bookclub-card {
+    flex: 1 1 200px;
+    max-width: 300px;
+    margin: 10px;
+  }
+  
+  .club-search-results .bookclub-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  

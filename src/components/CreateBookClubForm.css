@@ -1,0 +1,206 @@
+.content-container .create-book-club-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 90%;
+  max-width: 550px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  gap: 1.25rem;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.content-container .create-book-club-form .form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-sizing: border-box;
+}
+
+.content-container .create-book-club-form .form-group label {
+  font-weight: 600;
+  color: rgb(30, 60, 54);
+  font-size: 0.95rem;
+}
+
+.content-container .create-book-club-form input,
+.content-container .create-book-club-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.content-container .create-book-club-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.content-container .create-book-club-form .search-container {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content-container .create-book-club-form .search-container input {
+  flex: 1;
+  min-width: 0; /* Prevents input from overflowing */
+}
+
+.content-container .create-book-club-form .search-button {
+  padding: 0.8rem 1rem;
+  background-color: rgb(30, 60, 54);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.content-container .create-book-club-form .book-results {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.content-container .create-book-club-form .book-result-item {
+  padding: 0.8rem;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.2s;
+  font-size: 0.95rem;
+}
+
+.content-container .create-book-club-form .book-result-item:hover {
+  background-color: #f0f0f0;
+}
+
+.content-container .create-book-club-form .selected-book {
+  padding: 0.8rem;
+  background-color: #e8f0fe;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.content-container .create-book-club-form input:focus,
+.content-container .create-book-club-form textarea:focus {
+  outline: none;
+  border-color: rgb(30, 60, 54);
+  box-shadow: 0 0 0 3px rgba(30, 60, 54, 0.1);
+}
+
+.content-container .create-book-club-form button[type="submit"],
+.content-container .create-book-club-form .create-button,
+.content-container .create-book-club-form .cancel-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: rgb(30, 60, 54);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+  box-sizing: border-box;
+}
+
+.content-container .create-book-club-form button:hover:not(:disabled) {
+  background-color: rgb(120, 110, 73);
+}
+
+.content-container .create-book-club-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.content-container .create-book-club-form .error-message {
+  color: #dc2626;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background-color: #fee2e2;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.content-container .create-book-club-form button.loading {
+  position: relative;
+  color: transparent;
+}
+
+.content-container .create-book-club-form button.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-container .create-book-club-form {
+    width: 95%;
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+
+  .content-container .create-book-club-form .search-container {
+    flex-direction: column;
+  }
+
+  .content-container .create-book-club-form input,
+  .content-container .create-book-club-form textarea,
+  .content-container .create-book-club-form button,
+  .content-container .create-book-club-form .search-button {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  .content-container .create-book-club-form .form-group {
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-container .create-book-club-form {
+    width: 98%;
+    margin: 0.5rem auto;
+    padding: 0.8rem;
+  }
+  
+  .content-container .create-book-club-form .form-group label {
+    font-size: 0.9rem;
+  }
+}
