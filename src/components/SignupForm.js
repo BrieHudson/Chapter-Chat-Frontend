@@ -74,7 +74,7 @@ const SignupForm = () => {
           type="password"
           name="password"
           placeholder="Password"
-          value={formData.password}
+          value={formData.password_hash}
           onChange={handleChange}
           required
         />
