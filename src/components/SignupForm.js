@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api/axios';  // Import the configured axios instance
+import api from './api/axios';  // Import the configured axios instance
 import './AuthForms.css';
 
 // Custom Hook for Form Handling

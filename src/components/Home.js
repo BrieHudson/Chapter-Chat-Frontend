@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from '../api/axios';
+import api from './api/axios';
 import ClubSearchResults from "./ClubSearchResults";
 import CreateBookClubForm from "./CreateBookClubForm";
 import BookClubCard from "./BookClubCard"; 
