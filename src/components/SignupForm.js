@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';  // Import the configured axios instance
 import './AuthForms.css';
 
-// Custom Hook for Form Handling (Reused)
+// Custom Hook for Form Handling
 const useForm = (initialState) => {
   const [formData, setFormData] = useState(initialState);
 
@@ -35,10 +35,7 @@ const SignupForm = () => {
     console.log('Sending signup data:', formData);
 
     try {
-      const response = await axios.post(
-        'http://localhost:5012/api/authRoutes/signup',
-        formData
-      );
+      const response = await api.post('/api/authRoutes/signup', formData);
       console.log('Signup response:', response.data); 
       setMessage('Signup successful! Please log in.');
     } catch (error) {
@@ -77,7 +74,7 @@ const SignupForm = () => {
           type="password"
           name="password"
           placeholder="Password"
-          value={formData.password_hash}
+          value={formData.password}
           onChange={handleChange}
           required
         />

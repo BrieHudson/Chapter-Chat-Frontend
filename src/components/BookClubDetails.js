@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from '../api/axios';
 import "./BookClubDetails.css";
 
 const BookClubDetails = () => {
@@ -47,7 +47,7 @@ const BookClubDetails = () => {
     if (window.confirm('Are you sure you want to delete this book club?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`/api/bookclubs/${id}`, {
+        await api.delete(`/api/bookclubs/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         navigate('/bookclubs');
@@ -64,7 +64,7 @@ const BookClubDetails = () => {
         setLoading(true);
         const token = localStorage.getItem('token');
         
-        const clubResponse = await axios.get(`/api/bookclubs/${id}`, {
+        const clubResponse = await api.get(`/api/bookclubs/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -88,7 +88,7 @@ const BookClubDetails = () => {
   const handleJoinClick = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`/api/bookclubs/${id}/join`, {}, {
+      await api.post(`/api/bookclubs/${id}/join`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setJoined(true);
@@ -103,14 +103,14 @@ const BookClubDetails = () => {
     
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`/api/forums/${id}`, {
+      await api.post(`/api/forums/${id}`, {
         content: newPost,
         contains_spoilers: isSpoiler
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
-      const response = await axios.get(`/api/forums/${id}`, {
+      const response = await api.get(`/api/forums/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setForumPosts(response.data);

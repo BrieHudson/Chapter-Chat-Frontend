@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import BookCard from './BookCard';
 import backgroundImage from './background.jpg';
 import './Library.css';
@@ -14,7 +14,6 @@ const Library = () => {
   const [error, setError] = useState(null);
   const [visibleList, setVisibleList] = useState(null);
 
-  // Add the missing toggleVisibility function
   const toggleVisibility = (listName) => {
     setVisibleList(prevList => prevList === listName ? null : listName);
   };
@@ -29,10 +28,9 @@ const Library = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:5012/api/readingList', {
+        const response = await api.get('/api/readingList', {
           headers: { 
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Authorization': `Bearer ${token}`
           }
         });
 
@@ -53,16 +51,6 @@ const Library = () => {
 
     fetchReadingLists();
   }, []);
-
-  const statusMap = {
-    // Frontend to Backend
-    toRead: 'want_to_read',
-    reading: 'reading',
-    completed: 'read',
-    // Backend to Frontend
-    want_to_read: 'toRead',
-    read: 'completed'
-  };
 
   const handleListChange = async (book, newStatus) => {
     const frontendToBackend = {
@@ -99,8 +87,8 @@ const Library = () => {
         throw new Error(`Invalid status: ${newStatus}`);
       }
   
-      const response = await axios.put(
-        'http://localhost:5012/api/readingList/move',
+      const response = await api.put(
+        '/api/readingList/move',
         {
           bookId: book.id,
           fromList: fromBackendStatus,
@@ -108,8 +96,7 @@ const Library = () => {
         },
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Authorization': `Bearer ${token}`
           }
         }
       );
@@ -126,24 +113,20 @@ const Library = () => {
       }
     } catch (err) {
       console.error('Error moving book:', err);
-      console.error('Error details:', err.response?.data);  // Add this line
       alert(err.response?.data?.error || err.message || 'Failed to move book. Please try again.');
     }
   };
 
-
-  // Also need to add the deleteBook function that's being called in handleRemoveBook
   const deleteBook = async (book, list) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('No authentication token found');
 
-      const response = await axios.delete(
-        `http://localhost:5012/api/readingList/${book.id}`,
+      const response = await api.delete(
+        `/api/readingList/${book.id}`,
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Authorization': `Bearer ${token}`
           }
         }
       );
@@ -174,39 +157,39 @@ const Library = () => {
   return (
     <div className="library-page" style={{'--background-image': `url(${backgroundImage})`}}>
       <div className="content-container">
-      <h1>My Library</h1>
-      {['toRead', 'reading', 'completed'].map(listName => (
-        <section key={listName} className="reading-list-card">
-          <div 
-            className={`reading-list-card-header ${listName}`}
-            onClick={() => toggleVisibility(listName)}
-          >
-            <h2>
-              {listName === 'toRead' ? 'Want to Read' : 
-               listName === 'reading' ? 'Currently Reading' : 
-               'Completed'}
-            </h2>
-          </div>
-          {visibleList === listName && (
-            <div className="books-grid">
-              {readingLists[listName].length > 0 ? (
-                readingLists[listName].map(book => (
-                  <BookCard
-                    key={book.id}
-                    book={book}
-                    listType={listName}
-                    onSelect={() => {/* Handle book selection if needed */}}
-                    onListChange={(book, newStatus) => handleListChange(book, newStatus)}
-                    onRemoveFromList={(book) => handleRemoveBook(book, listName)}
-                  />
-                ))
-              ) : (
-                <div>No books saved</div>
-              )}
+        <h1>My Library</h1>
+        {['toRead', 'reading', 'completed'].map(listName => (
+          <section key={listName} className="reading-list-card">
+            <div 
+              className={`reading-list-card-header ${listName}`}
+              onClick={() => toggleVisibility(listName)}
+            >
+              <h2>
+                {listName === 'toRead' ? 'Want to Read' : 
+                 listName === 'reading' ? 'Currently Reading' : 
+                 'Completed'}
+              </h2>
             </div>
-          )}
-        </section>
-      ))}
+            {visibleList === listName && (
+              <div className="books-grid">
+                {readingLists[listName].length > 0 ? (
+                  readingLists[listName].map(book => (
+                    <BookCard
+                      key={book.id}
+                      book={book}
+                      listType={listName}
+                      onSelect={() => {/* Handle book selection if needed */}}
+                      onListChange={(book, newStatus) => handleListChange(book, newStatus)}
+                      onRemoveFromList={(book) => handleRemoveBook(book, listName)}
+                    />
+                  ))
+                ) : (
+                  <div>No books saved</div>
+                )}
+              </div>
+            )}
+          </section>
+        ))}
       </div>
     </div>
   );

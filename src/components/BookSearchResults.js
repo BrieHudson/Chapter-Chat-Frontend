@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../api/axios';
 import BookCard from './BookCard';
 import './BookSearchResults.css';
 
@@ -26,19 +27,16 @@ const BookSearchResults = ({ searchResults }) => {
         description: book.volumeInfo.description
       };
 
-      const response = await fetch('http://localhost:5012/api/readingList/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ 
-          book: bookData, 
-          list: newList
-        })
-      });
+      const response = await api.post('/api/readingList/add', 
+        { book: bookData, list: newList },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
 
-      if (!response.ok) {
+      if (!response.data.success) {
         throw new Error('Failed to add book');
       }
 

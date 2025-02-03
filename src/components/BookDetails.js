@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import api from '../api/axios';
 import axios from "axios";
 import BookSearchResults from './BookSearchResults';
 import './BookClubDetails.css'
@@ -32,10 +33,10 @@ const BookClubDetails = () => {
     try {
       const token = localStorage.getItem('token');
       const [clubResponse, forumResponse] = await Promise.all([
-        axios.get(`/api/bookclubs/${id}`, {
+        api.get(`/api/bookclubs/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        axios.get(`/api/forums/${id}`, {
+        api.get(`/api/forums/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
@@ -77,7 +78,7 @@ const BookClubDetails = () => {
       };
 
       // Update the current book and clear forum
-      await axios.put(`/api/bookclubs/${id}`, {
+      await api.put(`/api/bookclubs/${id}`, {
         ...editForm,
         current_book: bookData
       }, {
@@ -98,7 +99,7 @@ const BookClubDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`/api/bookclubs/${id}`, editForm, {
+      await api.put(`/api/bookclubs/${id}`, editForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -109,7 +110,42 @@ const BookClubDetails = () => {
     }
   };
 
-  // ... (keeping existing handleJoinClick and handlePostSubmit functions)
+  const handleJoinClick = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await api.post(`/api/bookclubs/${id}/join`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setJoined(true);
+    } catch (error) {
+      console.error('Error joining club:', error);
+    }
+  };
+
+  const handlePostSubmit = async (e) => {
+    e.preventDefault();
+    if (!newPost.trim()) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      await api.post(`/api/forums/${id}`, {
+        content: newPost,
+        contains_spoilers: isSpoiler
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const response = await api.get(`/api/forums/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setForumPosts(response.data);
+      setNewPost("");
+      setIsSpoiler(false);
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+  };
 
   if (!clubDetails) return <div>Loading...</div>;
 

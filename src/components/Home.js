@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import api from '../api/axios';
 import ClubSearchResults from "./ClubSearchResults";
 import CreateBookClubForm from "./CreateBookClubForm";
 import BookClubCard from "./BookClubCard"; 
 import backgroundImage from './background.jpg';
 import "./Home.css";
-
-const API_BASE_URL = 'http://localhost:5012';
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,12 +22,9 @@ const HomePage = () => {
         throw new Error('No authentication token found');
       }
       
-      const response = await axios({
-        method: 'get',
-        url: `${API_BASE_URL}/api/bookClubs`,
+      const response = await api.get('/api/bookClubs', {
         headers: { 
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${token}`
         }
       });
       
@@ -60,13 +55,10 @@ const HomePage = () => {
         throw new Error('No authentication token found');
       }
       
-      const response = await axios({
-        method: 'get',
-        url: `${API_BASE_URL}/api/bookClubs/search`,
+      const response = await api.get('/api/bookClubs/search', {
         params: { query: query.trim() },
         headers: { 
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${token}`
         }
       });
       

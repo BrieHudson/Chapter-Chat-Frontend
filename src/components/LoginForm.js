@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 import './AuthForms.css';
 
 // Custom Hook for Form Handling
@@ -31,13 +31,9 @@ const LoginForm = ({ setAuth }) => {
     setMessage(''); // Reset message before submission
 
     try {
-      const response = await axios.post(
-        'http://localhost:5012/api/authRoutes/login',  
-        formData
-      );
-
-      localStorage.setItem('token', response.data.token); // Save token in local storage
-      setAuth(true); // Indicate user is authenticated
+      const response = await api.post('/api/authRoutes/login', formData);
+      localStorage.setItem('token', response.data.token);
+      setAuth(true);
       setMessage('Login successful!');
       navigate('/home'); 
     } catch (error) {
