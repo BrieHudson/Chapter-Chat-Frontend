@@ -10,7 +10,7 @@ const BookCard = ({
   onRemoveFromList 
 }) => {
   const bookInfo = book.volumeInfo || book;
-  const [selectedList, setSelectedList] = useState(listType || 'toRead');
+  const [selectedList, setSelectedList] = useState(listType || 'want_to_read');
 
   const handleListChange = (e) => {
     e.stopPropagation();
@@ -97,9 +97,9 @@ const BookCard = ({
                 onChange={handleListChange}
                 className="list-select"
               >
-                <option value="toRead">Want to Read</option>
+                <option value="want_to_read">Want to Read</option>
                 <option value="reading">Currently Reading</option>
-                <option value="completed">Read</option>
+                <option value="read">Read</option>
               </select>
               <button 
                 className="add-button"
@@ -116,9 +116,9 @@ const BookCard = ({
                 onChange={handleListChange}
                 className="list-select"
               >
-                <option value="toRead">Want to Read</option>
+                <option value="want_to_read">Want to Read</option>
                 <option value="reading">Currently Reading</option>
-                <option value="completed">Read</option>
+                <option value="read">Read</option>
               </select>
               <button 
                 className="remove-button"

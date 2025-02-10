@@ -6,9 +6,9 @@ import './Library.css';
 
 const Library = () => {
   const [readingLists, setReadingLists] = useState({
-    toRead: [],
+    want_to_read: [],
     reading: [],
-    completed: []
+    read: []
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -53,12 +53,6 @@ const Library = () => {
   }, []);
 
   const handleListChange = async (book, newStatus) => {
-    const frontendToBackend = {
-      toRead: 'want_to_read',
-      reading: 'reading',
-      completed: 'read'
-    };
-  
     try {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('No authentication token found');
@@ -73,26 +67,12 @@ const Library = () => {
   
       if (!currentList) throw new Error('Book not found in any list');
   
-      const fromBackendStatus = frontendToBackend[currentList];
-      const toBackendStatus = frontendToBackend[newStatus];
-  
-      console.log('Move request:', {
-        currentList,
-        newStatus,
-        fromBackendStatus,
-        toBackendStatus
-      });
-  
-      if (!toBackendStatus) {
-        throw new Error(`Invalid status: ${newStatus}`);
-      }
-  
       const response = await api.put(
         '/api/readingList/move',
         {
           bookId: book.id,
-          fromList: fromBackendStatus,
-          toList: toBackendStatus
+          fromList: currentList,
+          toList: newStatus
         },
         {
           headers: {
@@ -154,21 +134,24 @@ const Library = () => {
   if (loading) return <div className="loading-state">Loading your library...</div>;
   if (error) return <div className="error-state">Error: {error}</div>;
 
+  // Display names for the lists
+  const listDisplayNames = {
+    'want_to_read': 'Want to Read',
+    'reading': 'Currently Reading',
+    'read': 'Read'
+  };
+
   return (
     <div className="library-page" style={{'--background-image': `url(${backgroundImage})`}}>
       <div className="content-container">
         <h1>My Library</h1>
-        {['toRead', 'reading', 'completed'].map(listName => (
+        {['want_to_read', 'reading', 'read'].map(listName => (
           <section key={listName} className="reading-list-card">
             <div 
               className={`reading-list-card-header ${listName}`}
               onClick={() => toggleVisibility(listName)}
             >
-              <h2>
-                {listName === 'toRead' ? 'Want to Read' : 
-                 listName === 'reading' ? 'Currently Reading' : 
-                 'Completed'}
-              </h2>
+              <h2>{listDisplayNames[listName]}</h2>
             </div>
             {visibleList === listName && (
               <div className="books-grid">
