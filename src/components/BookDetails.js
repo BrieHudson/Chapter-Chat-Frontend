@@ -81,7 +81,6 @@ const BookDetails = () => {
   return (
     <div className="book-details-container">
       <div className="book-details-content">
-        {/* Book Cover Section */}
         <div className="book-cover-section">
           {imageLinks?.thumbnail ? (
             <img
@@ -114,7 +113,6 @@ const BookDetails = () => {
           </div>
         </div>
 
-        {/* Book Information Section */}
         <div className="book-info-section">
           <h1 className="book-title">{title}</h1>
           
@@ -124,9 +122,11 @@ const BookDetails = () => {
             </p>
           )}
 
-          {publisher && publishedDate && (
+          {(publisher || publishedDate) && (
             <p className="book-publishing-info">
-              Published by {publisher} ({publishedDate})
+              {publisher && `Published by ${publisher}`}
+              {publisher && publishedDate && ' '}
+              {publishedDate && `(${publishedDate})`}
             </p>
           )}
 
@@ -134,14 +134,14 @@ const BookDetails = () => {
             <p className="book-pages">{pageCount} pages</p>
           )}
 
-          {categories && (
+          {categories && categories.length > 0 && (
             <div className="book-section">
               <h2 className="section-title">Categories</h2>
               <p className="book-categories">{categories.join(', ')}</p>
             </div>
           )}
 
-          {industryIdentifiers && (
+          {industryIdentifiers && industryIdentifiers.length > 0 && (
             <div className="book-section">
               <h2 className="section-title">ISBN</h2>
               <p className="book-isbn">{industryIdentifiers[0]?.identifier}</p>
