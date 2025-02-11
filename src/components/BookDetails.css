@@ -1,256 +1,152 @@
-.book-club-container {
-  max-width: 1024px;
+.book-details-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 24px;
+  background-color: #fff;
 }
 
-.book-club-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.book-club-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid #eee;
-}
-
-.header-content {
+.book-details-content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 32px;
 }
 
-.club-title {
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: #333;
+.book-cover-section {
+  width: 300px;
+  flex-shrink: 0;
 }
 
-.book-club-content {
-  padding: 1.5rem;
-}
-
-.club-info-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.club-image-container {
-  width: 100%;
-}
-
-.club-image {
+.book-cover-image {
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.club-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.club-description {
-  color: #666;
-  line-height: 1.6;
-}
-
-.meeting-time {
-  color: #666;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Buttons */
-.edit-button, .change-book-button, .join-button, .search-button, .post-button {
-  background: rgb(30, 60, 54);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.edit-button:hover, .change-book-button:hover, .join-button:hover, 
-.search-button:hover, .post-button:hover {
-  background: #8b9384;
-}
-
-.cancel-button {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.cancel-button:hover {
-  background: #d1d5db;
-}
-
-/* Current Book Section */
-.current-book-section {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #f9fafb;
+.book-cover-placeholder {
+  width: 100%;
+  height: 400px;
+  background-color: #f4f4f4;
   border-radius: 8px;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.current-book-display {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 6px;
-}
-
-.book-cover {
-  width: 96px;
-  height: 144px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.book-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.book-title {
-  font-weight: 500;
-  color: #333;
-}
-
-.book-author {
-  color: #666;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  max-width: 600px;
-  width: 100%;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.close-modal {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
   color: #666;
 }
 
-.search-controls {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.search-input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-/* Form Styles */
-.edit-form {
+.book-list-actions {
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 12px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-weight: 500;
-  color: #374151;
-}
-
-.form-input, .form-textarea {
-  padding: 0.5rem;
+.book-list-select {
+  width: 100%;
+  padding: 8px 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.add-to-list-button {
   width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.form-actions {
+.add-to-list-button:hover {
+  background-color: #2980b9;
+}
+
+.book-info-section {
+  flex-grow: 1;
+}
+
+.book-title {
+  font-size: 2rem;
+  color: #333;
+  margin: 0 0 12px 0;
+}
+
+.book-author {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0 0 24px 0;
+  font-style: italic;
+}
+
+.book-publishing-info {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.book-pages {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.book-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.book-categories,
+.book-isbn {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.book-description {
+  color: #444;
+  line-height: 1.6;
+}
+
+.loading-state {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-/* Forum Section */
-.forum-section {
-  margin-top: 2rem;
-}
-
-.forum-header {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
+  height: 400px;
+  font-size: 1.2rem;
+  color: #666;
 }
 
-.spoiler-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.error-state {
+  color: #e74c3c;
+  padding: 16px;
+  text-align: center;
 }
 
-.forum-form {
-  margin-bottom: 1.5rem;
-}
+/* Responsive design */
+@media (max-width: 768px) {
+  .book-details-content {
+    flex-direction: column;
+  }
 
-.forum-textarea {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
+  .book-cover-section {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .book-title {
+    font-size: 1.5rem;
+  }
+
+  .book-author {
+    font-size: 1.1rem;
+  }
 }
