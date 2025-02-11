@@ -5,12 +5,13 @@ import './BookCard.css';
 const BookCard = ({ 
   book, 
   onSelect, 
-  listType = null,  // null for search results, string for library view
+  listType = null,
   onListChange,
   onRemoveFromList 
 }) => {
   const bookInfo = book.volumeInfo || book;
   const [selectedList, setSelectedList] = useState(listType || 'want_to_read');
+  const imageUrl = bookInfo.imageLinks?.thumbnail || bookInfo.coverImage || bookInfo.thumbnail_url;
 
   const handleListChange = (e) => {
     e.stopPropagation();
@@ -40,7 +41,7 @@ const BookCard = ({
       const bookData = {
         title: bookInfo.title,
         author: Array.isArray(bookInfo.authors) ? bookInfo.authors.join(', ') : bookInfo.author,
-        coverImage: bookInfo.imageLinks?.thumbnail || bookInfo.coverImage,
+        coverImage: imageUrl,
         description: bookInfo.description,
       };
   
@@ -63,9 +64,9 @@ const BookCard = ({
   return (
     <div className="book-card" onClick={() => onSelect && onSelect(book)}>
       <div className="book-image">
-        {(bookInfo.imageLinks?.thumbnail || bookInfo.coverImage) ? (
+        {imageUrl ? (
           <img
-            src={bookInfo.imageLinks?.thumbnail || bookInfo.coverImage}
+            src={imageUrl}
             alt={bookInfo.title}
             className="book-cover"
           />
