@@ -3,15 +3,21 @@ import api from './api/axios';
 import { useParams } from 'react-router-dom';
 import './BookDetails.css';
 
-const BookDetails = () => {
+const BookDetails = ({ book: providedBook, isModal, onClose }) => {
   const { id } = useParams();
-  const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [book, setBook] = useState(providedBook);
+  const [loading, setLoading] = useState(!providedBook);
   const [error, setError] = useState(null);
   const [selectedList, setSelectedList] = useState('want_to_read');
 
   useEffect(() => {
     const fetchBookDetails = async () => {
+      if (providedBook) {
+        setBook(providedBook);
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await api.get(`/api/books/${id}`);
         setBook(response.data);
@@ -24,7 +30,7 @@ const BookDetails = () => {
     };
 
     fetchBookDetails();
-  }, [id]);
+  }, [id, providedBook]);
 
   const handleAddToList = async () => {
     try {
@@ -56,6 +62,9 @@ const BookDetails = () => {
       );
 
       alert(`Book added to ${selectedList} list!`);
+      if (isModal && onClose) {
+        onClose();
+      }
     } catch (error) {
       console.error('Error adding book:', error);
       alert(`Failed to add book to list: ${error.message}`);
@@ -79,7 +88,7 @@ const BookDetails = () => {
   } = book.volumeInfo;
 
   return (
-    <div className="book-details-page">
+    <div className={`book-details-page ${isModal ? 'modal-view' : ''}`}>
       <div className="book-details-container">
         <div className="book-details-content">
           <div className="book-cover-section">
